@@ -1,0 +1,45 @@
+.users-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: Inter, sans-serif;
+}
+
+.users-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #374151;
+}
+
+.users-table th {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+
+.users-table tr:hover {
+  background: #f9fafb;
+}
+
+.error {
+  color: #dc2626;
+  text-align: center;
+  font-weight: bold;
+}

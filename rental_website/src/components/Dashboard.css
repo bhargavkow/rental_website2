@@ -1,0 +1,48 @@
+.dashboard-page {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Inter, sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1;
+  padding: 30px 20px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #111827;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: 700;
+  color: #4f46e5;
+}

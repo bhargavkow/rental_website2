@@ -1,0 +1,127 @@
+.about-us-container {
+  font-family: "Sofia", serif;
+  color: #333;
+  line-height: 1.6;
+  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+}
+
+/* Page layout */
+.about-us-container {
+  padding-top: 0;
+}
+
+.about-us-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-us-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: -20px;
+}
+
+.text-content h2 {
+  font-size: 40px;
+}
+
+.about-us-header .subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  max-width: 600px;
+  margin: 1rem auto 0;
+}
+
+.story-block,
+.team-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5rem;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .story-block,
+  .team-block {
+    flex-direction: row;
+    text-align: left;
+  }
+  .story-block:nth-of-type(odd) {
+    flex-direction: row-reverse;
+  }
+}
+
+.story-block .text-content,
+.team-block .text-content {
+  flex: 1;
+}
+
+.story-block .image-content,
+.team-block .image-content {
+  flex: 1;
+}
+
+.founder-image,
+.team-image {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mission-block {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.mission-block h2 {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.value-card {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.value-card h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  color: #1a1a1a;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #0056b3;
+}

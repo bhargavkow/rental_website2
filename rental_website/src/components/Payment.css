@@ -1,0 +1,4 @@
+/* Payments page */
+.payments-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+.payment-item{ display:flex; justify-content:space-between; align-items:center; padding:12px; border-radius:8px; background:var(--card); border:1px solid rgba(15,23,42,0.03); }
+.payment-item small{ color:var(--muted); }

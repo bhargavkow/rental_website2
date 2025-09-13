@@ -1,0 +1,10 @@
+/* Flex Centering */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 150px 0 500px 0; /* Static padding for the container */
+}
