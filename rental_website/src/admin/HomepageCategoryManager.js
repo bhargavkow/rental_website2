@@ -3,6 +3,7 @@ import axios from 'axios';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus, faTimes, faCheck, faArrowUp, faArrowDown, faHome } from '@fortawesome/free-solid-svg-icons';
+import { API_URL } from '../config';
 
 const HomepageCategoryManager = () => {
     const [categories, setCategories] = useState([]);
@@ -25,8 +26,6 @@ const HomepageCategoryManager = () => {
         fetchCategories();
     }, []);
 
-    const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
-    
     const fetchCategories = async () => {
         try {
             setLoading(true);

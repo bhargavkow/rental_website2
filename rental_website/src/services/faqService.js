@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
+import { API_URL } from '../config';
 
 // Get all active FAQs (for public display)
 export const getFAQs = async () => {

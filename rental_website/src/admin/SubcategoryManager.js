@@ -24,9 +24,6 @@ const SubcategoryManager = () => {
         fetchData();
     }, []);
 
-    const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
-    
-    // Try alternative API URLs if the default fails
     const API_URLS = [
         API_URL,
         'https://stylehub-backend-nu.vercel.app',

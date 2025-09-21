@@ -3,6 +3,7 @@ import axios from "axios";
 import LocationGallery from "../components/LocationGallery";
 import PhotoCarousel from "../components/PhotoCarousel";
 import { getFAQs } from "../services/faqService";
+import { API_URL } from '../config';
 
 
 
@@ -40,9 +41,6 @@ function Home() {
   const [faqsLoading, setFaqsLoading] = useState(true);
   const [faqsError, setFaqsError] = useState(null);
 
-  // Define API URL
-  const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
-
   // Fetch carousel images from API
   useEffect(() => {
     const fetchCarouselImages = async () => {
@@ -67,7 +65,7 @@ function Home() {
     };
 
     fetchCarouselImages();
-  }, [API_URL]);
+  }, []); // API_URL is imported from config and doesn't change
 
   // Fetch categories from API
   useEffect(() => {
@@ -97,7 +95,7 @@ function Home() {
     };
 
     fetchCategories();
-  }, [API_URL]);
+  }, []); // API_URL is imported from config and doesn't change
 
   // Fetch FAQs from API
   useEffect(() => {

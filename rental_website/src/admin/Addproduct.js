@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit, faTrash, faTimes, faCheck, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { API_URL } from '../config';
 
 const Addproduct = () => {
   const [products, setProducts] = useState([]);
@@ -38,8 +39,6 @@ const Addproduct = () => {
     fetchData();
   }, []);
 
-
-  const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
 
   const fetchData = async () => {
     try {

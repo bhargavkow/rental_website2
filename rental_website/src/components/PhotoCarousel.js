@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const PhotoCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
 
   // Fetch carousel images from API
   useEffect(() => {
@@ -83,7 +82,7 @@ const PhotoCarousel = () => {
     };
 
     fetchImages();
-  }, [API_URL]);
+  }, []); // API_URL is imported from config and doesn't change
 
   // Auto-play functionality
   useEffect(() => {

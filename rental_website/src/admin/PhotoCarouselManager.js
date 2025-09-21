@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Popup from '../components/Popup';
 import { usePopup } from '../hooks/usePopup';
+import { API_URL } from '../config';
 
 const PhotoCarouselManager = () => {
   const [carouselItems, setCarouselItems] = useState([]);
@@ -20,8 +21,6 @@ const PhotoCarouselManager = () => {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
-  
   // Debug: Log API URL
   console.log('🔍 PhotoCarouselManager API_URL:', API_URL);
 

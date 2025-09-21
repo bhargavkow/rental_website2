@@ -5,9 +5,7 @@ import { useUser } from "../context/UserContext";
 import stylehub4 from "../imges/stylehub4.png";
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-
-// Define API URL
-const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
+import { API_URL } from '../config';
 
 
 function Login() {

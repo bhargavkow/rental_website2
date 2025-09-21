@@ -4,9 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faSearch, faEye, faUserCheck, faUserTimes, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Popup from "../components/Popup";
 import { usePopup } from "../hooks/usePopup";
-
-// Define API URL
-const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
+import { API_URL } from '../config';
 
 const Users = () => {
   const [users, setUsers] = useState([]);

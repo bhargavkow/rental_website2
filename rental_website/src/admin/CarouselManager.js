@@ -3,6 +3,7 @@ import axios from 'axios';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus, faTimes, faCheck, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { API_URL } from '../config';
 
 const CarouselManager = () => {
     const [carouselImages, setCarouselImages] = useState([]);
@@ -24,8 +25,6 @@ const CarouselManager = () => {
         fetchCarouselImages();
     }, []);
 
-    const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
-    
     const fetchCarouselImages = async () => {
         try {
             setLoading(true);

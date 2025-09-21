@@ -4,9 +4,7 @@ import { useUser } from "../context/UserContext";
 import Footer from "./Footer";
 import axios from "axios";
 import Navbar from "./Navbar";
-
-// Define API URL
-const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
+import { API_URL } from '../config';
 
 const Profile = () => {
   const { user, setUser } = useUser();

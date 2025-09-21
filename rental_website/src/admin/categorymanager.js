@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus, faTimes, faCheck, faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
+import { API_URL } from '../config';
 
 const CategoryManager = () => {
     const [categories, setCategories] = useState([]);
@@ -20,8 +21,6 @@ const CategoryManager = () => {
         fetchCategories();
     }, []);
 
-    const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
-    
     const fetchCategories = async () => {
         try {
             setLoading(true);

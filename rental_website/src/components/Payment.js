@@ -5,8 +5,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import Popup from './Popup';
 import { usePopup } from '../hooks/usePopup';
-
-const API_URL = process.env.REACT_APP_API_URL || 'https://stylehub-backend-nu.vercel.app';
+import { API_URL } from '../config';
 
 const Payment = () => {
   const location = useLocation();
