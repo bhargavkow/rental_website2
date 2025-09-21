@@ -1,123 +1,109 @@
-// import React, { useContext, useState, useEffect } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import "./Navbar.css";
-// import { FavoritesContext } from "./FavoritesContext";
-
-// const Navbar = () => {
-//   const { favorites } = useContext(FavoritesContext);
-//   const [query, setQuery] = useState("");
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("access_token");
-//     setIsLoggedIn(!!token);
-//   }, []);
-
-//   const handleSearch = (e) => {
-//     e.preventDefault();
-//     if (query.trim()) {
-//       navigate(`/search?q=${query}`);
-//       setQuery("");
-//     }
-//   };
-
-//   const handleProfileClick = () => {
-//     if (isLoggedIn) {
-//       navigate("/profile");
-//     } else {
-//       navigate("/login");
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("access_token");
-//     localStorage.removeItem("refresh_token");
-//     setIsLoggedIn(false);
-//     navigate("/login");
-//   };
-
-//   return (
-//     <nav className="navbar">
-//       <div className="navbar-left">
-//         <Link to="/" className="logo">StyleHub</Link>
-//       </div>
-
-//       <div className="navbar-center">
-//         <ul className="nav-links">
-//           <li><Link to="/Men">Men</Link></li>
-//           <li><Link to="/Women">Women</Link></li>
-//           <li><Link to="/Children">Children</Link></li>
-//           <li><Link to="/Tranding">Trending</Link></li>
-//         </ul>
-//       </div>
-
-//       <div className="navbar-right">
-//         <form onSubmit={handleSearch} className="search-container">
-//           <input
-//             type="text"
-//             placeholder="Search..."
-//             className="search-box"
-//             value={query}
-//             onChange={(e) => setQuery(e.target.value)}
-//           />
-//           <button type="submit" className="search-btn">
-//             <i className="fas fa-search search-icon"></i>
-//           </button>
-//         </form>
-
-//         <Link to="/favorite" className="fav-icon">
-//           <i className="fa-regular fa-heart"></i>
-//           {favorites.length > 0 && (
-//             <span className="fav-count">{favorites.length}</span>
-//           )}
-//         </Link>
-
-//         <Link to="/Bag" className="bag-icon">
-//           <i className="fa-solid fa-cart-shopping"></i>
-//         </Link>
-
-//         {isLoggedIn ? (
-//           <>
-//             <button onClick={handleProfileClick} className="profile-icon">
-//               <i className="fa-regular fa-user"></i>
-//             </button>
-//             <button onClick={handleLogout} className="logout-button">
-//               Log Out
-//             </button>
-//           </>
-//         ) : (
-//           <>
-//             <Link to="/login" className="login-link">Login</Link>
-//             <Link to="/signup" className="signup-link">Sign Up</Link>
-//           </>
-//         )}
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-
-
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Navbar.css";
-import { FavoritesContext } from "./FavoritesContext";
+import { FavoritesContext } from "../context/FavoritesContext";
+import axios from "axios";
+import { API_URL } from "../config";
 
 const Navbar = () => {
   const { favorites } = useContext(FavoritesContext);
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState({});
+
   const navigate = useNavigate();
 
+  // API URLs to try
+    const API_URLS = [
+        API_URL,
+        'https://stylehub-backend-nu.vercel.app',
+        'http://127.0.0.1:5000',
+    'http://192.168.1.11:5000'
+  ];
+
+  // Fetch categories and subcategories
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
+    const fetchCategoriesAndSubcategories = async () => {
+      try {
+        setLoading(true);
+
+        // Try different API URLs
+        for (const url of API_URLS) {
+          try {
+            const [categoriesRes, subcategoriesRes] = await Promise.all([
+              axios.get(`${url}/api/categories/active/list`),
+              axios.get(`${url}/api/subcategories`)
+            ]);
+
+            // Handle response structure
+            const categoriesData = categoriesRes.data.success ? categoriesRes.data.data : categoriesRes.data;
+            const subcategoriesData = subcategoriesRes.data.success ? subcategoriesRes.data.data : subcategoriesRes.data;
+
+            // Filter active categories and limit to 4
+            const activeCategories = Array.isArray(categoriesData)
+              ? categoriesData.filter(cat => cat.isActive).slice(0, 4)
+              : [];
+
+            // Group subcategories by category
+            const subcategoriesByCategory = {};
+            if (Array.isArray(subcategoriesData)) {
+              subcategoriesData.forEach(sub => {
+                if (sub.isActive && sub.category) {
+                  const categoryId = sub.category._id || sub.category;
+                  if (!subcategoriesByCategory[categoryId]) {
+                    subcategoriesByCategory[categoryId] = [];
+                  }
+                  subcategoriesByCategory[categoryId].push(sub);
+                }
+              });
+            }
+
+            setCategories(activeCategories);
+            setSubcategories(subcategoriesByCategory);
+            setLoading(false);
+            return; // Success, exit the loop
+
+          } catch (err) {
+            console.error(`Error with API URL ${url}:`, err);
+            continue; // Try next URL
+          }
+        }
+
+        // If all URLs failed, set empty data
+        setCategories([]);
+        setSubcategories({});
+        setLoading(false);
+
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+        setCategories([]);
+        setSubcategories({});
+        setLoading(false);
+      }
+    };
+
+    fetchCategoriesAndSubcategories();
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("user_token");
     setIsLoggedIn(!!token);
+
+    // Listen for storage changes (when user logs in/out in another tab)
+    const handleStorageChange = () => {
+      const token = localStorage.getItem("user_token");
+      setIsLoggedIn(!!token);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Cleanup listener
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleSearch = (e) => {
@@ -139,109 +125,207 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user_token");
+    localStorage.removeItem("user_data");
     setIsLoggedIn(false);
     navigate("/login");
     setMobileOpen(false);
   };
 
-  const closeMobile = () => setMobileOpen(false);
+  // Function to refresh login state (can be called from other components)
+  const refreshLoginState = () => {
+    const token = localStorage.getItem("user_token");
+    setIsLoggedIn(!!token);
+  };
+
+  // Expose refresh function to window for external access
+  useEffect(() => {
+    window.refreshNavbarLoginState = refreshLoginState;
+    return () => {
+      delete window.refreshNavbarLoginState;
+    };
+  }, []);
+
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setDropdownOpen({});
+  };
+
+  const toggleDropdown = (categoryId) => {
+    setDropdownOpen((prev) => ({
+      ...prev,
+      [categoryId]: !prev[categoryId],
+    }));
+  };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-left">
+    <nav className="flex justify-between items-center glass-effect text-neutral-800 px-3 sm:px-6 lg:px-8 h-[80px] shadow-medium sticky top-0 z-[1000] backdrop-blur-[200px]">
+      {/* Logo & Hamburger */}
+      <div className="flex items-center">
         <button
-          className="hamburger"
+          className="lg:hidden mr-2 sm:mr-4 text-xl sm:text-2xl"
           aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
+          onClick={() => setMobileOpen(!mobileOpen)}
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <i className="fas fa-bars"></i>
         </button>
-        <Link to="/" className="logo" onClick={closeMobile}>StyleHub</Link>
+
+        <Link
+          to="/"
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient no-underline font-serif hover:no-underline hover:scale-105 transition-all duration-300"
+          onClick={closeMobile}
+        >
+          StyleHub
+        </Link>
       </div>
 
-      <div className={`navbar-center ${mobileOpen ? "open" : ""}`}>
-        <ul className="nav-links">
-          <li className="dropdown">
-            <Link to="/Men" className="nav-link" onClick={closeMobile}>Men</Link>
-            <div className="dropdown-content">
-              <Link to="/Men/Shirts" onClick={closeMobile}>Shirts</Link>
-              <Link to="/Men/Pants" onClick={closeMobile}>Pants</Link>
-              <Link to="/Men/Jackets" onClick={closeMobile}>Jackets</Link>
-              <Link to="/Men/Shoes" onClick={closeMobile}>Shoes</Link>
-            </div>
-          </li>
-          <li className="dropdown">
-            <Link to="/Women" className="nav-link" onClick={closeMobile}>Women</Link>
-            <div className="dropdown-content">
-              <Link to="/Women/Dresses" onClick={closeMobile}>Dresses</Link>
-              <Link to="/Women/Tops" onClick={closeMobile}>Tops</Link>
-              <Link to="/Women/Jeans" onClick={closeMobile}>Jeans</Link>
-              <Link to="/Women/Shoes" onClick={closeMobile}>Shoes</Link>
-            </div>
-          </li>
-          <li className="dropdown">
-            <Link to="/Children" className="nav-link" onClick={closeMobile}>Children</Link>
-            <div className="dropdown-content">
-              <Link to="/Children/Tops" onClick={closeMobile}>Tops</Link>
-              <Link to="/Children/Bottoms" onClick={closeMobile}>Bottoms</Link>
-              <Link to="/Children/Shoes" onClick={closeMobile}>Shoes</Link>
-              <Link to="/Children/Accessories" onClick={closeMobile}>Accessories</Link>
-            </div>
-          </li>
-          <li className="dropdown">
-            <Link to="/Tranding" className="nav-link" onClick={closeMobile}>Trending</Link>
-            <div className="dropdown-content">
-              <Link to="/Tranding/Latest" onClick={closeMobile}>Latest</Link>
-              <Link to="/Tranding/Deals" onClick={closeMobile}>Deals</Link>
-              <Link to="/Tranding/BestSellers" onClick={closeMobile}>Best Sellers</Link>
-            </div>
-          </li>
+      {/* Menu Links */}
+      <div
+        className={`absolute lg:static top-[80px] left-0 w-full transition-all duration-300 ease-in-out z-[999] 
+        ${mobileOpen ? "block bg-white shadow-strong backdrop-blur-xl" : "hidden lg:block bg-transparent"}`}
+      >
+        <ul className="flex flex-col  lg:flex-row gap-0 lg:gap-8 m-0 p-4 lg:p-0 lg:py-2 justify-center">
+          {/* Dynamic Categories */}
+          {loading ? (
+            <li className="text-center py-4 ">
+              <span className="text-gray-500">Loading categories...</span>
+            </li>
+          ) : (
+            categories.map((category) => (
+              <li key={category._id} className="relative group">
+                <div
+                  className="flex justify-between items-center lg:block lg:cursor-default cursor-pointer lg:cursor-pointer"
+                >
+                  {/* Mobile click handler */}
+                  <div 
+                    className="lg:hidden flex-1"
+                    onClick={() => toggleDropdown(category._id)}
+                  >
+                    <Link
+                      to={`/category/${category._id}`}
+                      className="block text-neutral-700 font-semibold hover:text-gradient-secondary py-2 px-4 transition-all duration-300 hover:scale-105 bg-white rounded-lg"
+                      onClick={closeMobile}
+                    >
+                      {category.categoryName}
+                    </Link>
+                    <span className="lg:hidden">
+                      <i
+                        className={`fas fa-chevron-${dropdownOpen[category._id] ? "up" : "down"} text-black`}
+                      ></i>
+                    </span>
+                  </div>
+                  
+                  {/* Desktop version - no click handler */}
+                  <div className="hidden lg:block">
+                    <Link
+                      to={`/category/${category._id}`}
+                      className="block text-neutral-700 font-semibold hover:text-gradient-secondary py-2 px-4 transition-all duration-300 hover:scale-105"
+                      onClick={closeMobile}
+                    >
+                      {category.categoryName}
+                    </Link>
+                  </div>
+                </div>
+                {subcategories[category._id] && subcategories[category._id].length > 0 && (
+                  <div
+                    className={`lg:absolute lg:top-full bg-white lg:left-0 glass-effect shadow-strong w-48 rounded-2xl py-3 z-10 backdrop-blur-xl ${dropdownOpen[category._id] ? "block" : "hidden lg:group-hover:block"
+                      }`}
+                  >
+                    {subcategories[category._id].map((subcategory) => (
+                      <Link
+                        key={subcategory._id}
+                        to={`/category/${category._id}/subcategory/${subcategory._id}`}
+                        className="block text-neutral-700 font-semibold hover:bg-blue-500 hover:text-white py-3 px-6 rounded-xl mx-2 transition-all duration-300 hover:no-underline hover:scale-105 bg-gray-50 lg:bg-transparent"
+                        onClick={closeMobile}
+                      >
+                        {subcategory.subcategoryName}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))
+          )}
         </ul>
       </div>
 
-      <div className="navbar-right">
-        <form onSubmit={handleSearch} className="search-container">
+      {/* Right Side */}
+      <div className="flex items-center gap-2 sm:gap-3 lg:gap-5">
+        {/* Search (desktop only) */}
+        <form onSubmit={handleSearch} className="relative w-64 hidden sm:block">
           <input
             type="text"
             placeholder="Search..."
-            className="search-box"
+            className="input-field w-full py-3 px-4 pr-12 rounded-full text-sm"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="search-btn">
-            <i className="fas fa-search search-icon"></i>
+          <button
+            type="submit"
+            className="absolute top-1/2 right-3 transform -translate-y-1/2 text-neutral-500 hover:text-gradient-primary transition-all duration-300"
+          >
+            <i className="fas fa-search"></i>
           </button>
         </form>
 
-        <Link to="/favorite" className="fav-icon" onClick={closeMobile}>
+        {/* Favorites */}
+        <Link
+          to="/favorite"
+          className="relative text-lg sm:text-xl lg:text-2xl text-neutral-700 hover:text-gradient-secondary transition-all duration-300 hover:scale-110"
+          onClick={closeMobile}
+        >
           <i className="fa-regular fa-heart"></i>
           {favorites.length > 0 && (
-            <span className="fav-count">{favorites.length}</span>
+            <span className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-2.5 bg-red-600 text-white rounded-full py-0.5 px-1 sm:py-1 sm:px-2 text-xs font-bold shadow-lg border-2 border-white">
+              {favorites.length}
+            </span>
           )}
         </Link>
 
-        <Link to="/Bag" className="bag-icon" onClick={closeMobile}>
+        {/* Cart */}
+        <Link
+          to="/Bag"
+          className="text-lg sm:text-xl lg:text-2xl text-neutral-700 hover:text-gradient-accent transition-all duration-300 hover:scale-110"
+          onClick={closeMobile}
+        >
           <i className="fa-solid fa-cart-shopping"></i>
         </Link>
 
+        {/* Auth */}
         {isLoggedIn ? (
           <>
-            <button onClick={handleProfileClick} className="profile-icon">
+            <button
+              onClick={handleProfileClick}
+              className="text-lg sm:text-xl lg:text-2xl text-neutral-700 hover:text-gradient-primary transition-all duration-300 hover:scale-110"
+            >
               <i className="fa-regular fa-user"></i>
             </button>
-            <button onClick={handleLogout} className="logout-button">
-              Log Out
+            <button
+              onClick={handleLogout}
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-1 px-2 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+            >
+              <i className="fas fa-sign-out-alt"></i>
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="login-link" onClick={closeMobile}>Login</Link>
-            <Link to="/signup" className="signup-link" onClick={closeMobile}>Sign Up</Link>
+            <Link
+              to="/login"
+              className="bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] hover:from-[#1E3A8A] hover:to-[#2563EB] text-white py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-sm rounded-full no-underline transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+              onClick={closeMobile}
+            >
+              <i className="fas fa-sign-in-alt"></i>
+              <span className="hidden sm:inline">Login</span>
+            </Link>
+            <Link
+              to="/signup"
+              className="bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-sm rounded-full no-underline transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+              onClick={closeMobile}
+            >
+              <i className="fas fa-user-plus"></i>
+              <span className="hidden sm:inline">SignUp</span>
+            </Link>
           </>
         )}
       </div>
