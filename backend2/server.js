@@ -25,24 +25,25 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// ✅ CORS configuration to allow React frontend
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
+    if (!origin) return callback(null, true); // allow non-browser requests
+
     const allowedOrigins = [
-      'http://localhost:3000', 
+      'http://localhost:3000',
       'http://127.0.0.1:3000',
-      'http://localhost:3001',
-      'http://127.0.0.1:3001',
+      'https://rental-website2-1eqwe.onrender.com', // deployed frontend
       process.env.CORS_ORIGIN
-    ].filter(Boolean); // Remove undefined values
-    
-    // Check if origin is allowed
+    ].filter(Boolean);
+
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      console.log('CORS blocked origin:', origin);
+      console.log('❌ CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -50,17 +51,8 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
 }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-// Additional CORS logging for debugging
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  console.log('Request from origin:', origin, 'Method:', req.method, 'Path:', req.path);
-  next();
-});
-
-// Serve static files (uploaded images) from frontend public folder
+// Serve static files (uploads)
 app.use('/uploads', express.static(path.join(__dirname, '../rental_website/public/uploads')));
 
 // Routes
@@ -79,69 +71,28 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 
-// Debug: Log all routes
-console.log('📋 Registered API Routes:');
-console.log('  - /api/products');
-console.log('  - /api/addresses');
-console.log('  - /api/categories');
-console.log('  - /api/subcategories');
-console.log('  - /api/orders');
-console.log('  - /api/payments');
-console.log('  - /api/razorpay');
-console.log('  - /api/carousels');
-console.log('  - /api/photo-carousel');
-console.log('  - /api/homepage-categories');
-console.log('  - /api/faqs');
-console.log('  - /api/user');
-console.log('  - /api/auth');
-console.log('  - /api/upload');
-
 // Root endpoint
 app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Product API Backend is running',
-    version: '1.0.0',
-    endpoints: [
-      '/api/products',
-      '/api/categories',
-      '/api/auth',
-      '/api/health'
-    ],
-    timestamp: new Date().toISOString()
-  });
+  res.json({ message: 'Product API Backend is running 🚀' });
 });
 
-// Health check endpoint
+// Health check
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    message: 'Product API is running',
-    timestamp: new Date().toISOString()
-  });
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Error handling middleware
+// Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ 
-    error: 'Something went wrong!',
-    message: err.message 
-  });
+  res.status(500).json({ error: 'Something went wrong!', message: err.message });
 });
 
 // 404 handler
 app.use('*', (req, res) => {
-  res.status(404).json({ 
-    error: 'Route not found',
-    message: `Cannot ${req.method} ${req.originalUrl}` 
-  });
+  res.status(404).json({ error: 'Route not found', message: `Cannot ${req.method} ${req.originalUrl}` });
 });
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
-  console.log(`🏥 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`🌐 CORS configured for: ${process.env.CORS_ORIGIN || 'localhost'}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
-
-module.exports = app;

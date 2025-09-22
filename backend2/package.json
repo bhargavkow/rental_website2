@@ -3,19 +3,21 @@
   "version": "1.0.0",
   "description": "Rental website backend API",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "build": "echo 'No build step required for Node.js backend'",
     "dev": "nodemon server.js",
+    "build": "echo 'No build step required for Node.js backend'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "api",
     "express",
     "rental",
-    "backend"
+    "backend",
+    "mongodb"
   ],
-  "author": "",
+  "author": "Bhargav Baldaniya",
   "license": "ISC",
   "engines": {
     "node": ">=18.0.0",

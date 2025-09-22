@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../config";
+import { API_URL } from "../config"; // e.g., "https://backend2-5tar.onrender.com"
 
 function Adminform({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
@@ -14,6 +14,7 @@ function Adminform({ onLoginSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation
     if (!username || !password) {
       setError("Please enter both username and password.");
       return;
@@ -25,22 +26,25 @@ function Adminform({ onLoginSuccess }) {
     try {
       const response = await axios.post(
         `${API_URL}/api/auth/login`,
-        { username: username, password: password },
-        { headers: { "Content-Type": "application/json" } }
+        { username, password },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true // required if backend uses cookies
+        }
       );
 
-      const token = response.data.data.token;
+      const token = response.data.data?.token;
 
       if (token) {
-        localStorage.setItem("admin_token", token);
+        localStorage.setItem("admin_token", token); // store token
         if (onLoginSuccess) onLoginSuccess();
-        navigate("/admin");
+        navigate("/admin"); // redirect to admin panel
       } else {
         setError("Login failed. Invalid credentials.");
       }
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Invalid username or password.");
+      console.error("Login error:", err);
+      setError(err.response?.data?.message || "Network error or invalid credentials.");
     } finally {
       setLoading(false);
     }
@@ -73,7 +77,9 @@ function Adminform({ onLoginSuccess }) {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-md text-white font-semibold ${loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"}`}
+            className={`w-full py-3 rounded-md text-white font-semibold ${
+              loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+            }`}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
