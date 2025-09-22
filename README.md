@@ -6,18 +6,19 @@ A full-stack rental website with React frontend and Node.js backend.
 
 ```
 rental_website2/
-├── backend/           # Node.js/Express API
+├── apis/              # API route handlers
+├── config/            # Database and payment configuration
+├── models/            # MongoDB models
+├── server.js          # Main server file
+├── package.json       # Backend dependencies
 ├── rental_website/    # React frontend
-├── versel-backend/    # Vercel deployment backend
-├── render.yaml        # Render deployment configuration
-└── .renderignore      # Render ignore file
+└── backend/           # Original backend (backup)
 ```
 
 ## Local Development
 
 ### Backend
 ```bash
-cd backend
 npm install
 npm run dev
 ```
@@ -31,11 +32,11 @@ npm start
 
 ## Deployment
 
-### Render.com Deployment (Manual Setup Required)
+### Render.com Deployment (Backend)
 
-**IMPORTANT:** Since the Blueprint approach is not working properly, you need to create services manually on Render.
+**IMPORTANT:** The backend files are now in the root directory for easier deployment.
 
-#### Step 1: Create Backend Service
+#### Create Backend Service
 
 1. Go to your Render dashboard
 2. Click "New" → "Web Service"
@@ -45,7 +46,7 @@ npm start
    - **Environment:** `Node`
    - **Region:** Choose your preferred region
    - **Branch:** `master`
-   - **Root Directory:** `backend`
+   - **Root Directory:** Leave empty (uses root directory)
    - **Build Command:** `npm install`
    - **Start Command:** `npm start`
    - **Health Check Path:** `/api/health`
@@ -58,7 +59,7 @@ npm start
 
 6. Click "Create Web Service"
 
-#### Step 2: Create Frontend Service
+#### Create Frontend Service
 
 1. Go to your Render dashboard
 2. Click "New" → "Static Site"
@@ -74,14 +75,6 @@ npm start
    - `REACT_APP_API_URL`: Your backend service URL (e.g., `https://rental-backend.onrender.com`)
 
 6. Click "Create Static Site"
-
-### Alternative: Separate Repositories
-
-If the monorepo approach continues to cause issues, consider splitting into separate repositories:
-
-1. **Backend Repository:** Move `backend/` folder to a new repository
-2. **Frontend Repository:** Move `rental_website/` folder to a new repository
-3. Deploy each repository separately on Render
 
 ## Environment Variables
 
