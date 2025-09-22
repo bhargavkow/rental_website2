@@ -1,0 +1,33 @@
+{
+  "name": "rental-website",
+  "version": "1.0.0",
+  "description": "Rental website full-stack application",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install",
+    "dev": "cd backend && npm run dev",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "build-frontend": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "rental",
+    "website",
+    "fullstack",
+    "react",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhargavkow/rental_website2.git"
+  }
+}
