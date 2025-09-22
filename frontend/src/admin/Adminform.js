@@ -51,9 +51,9 @@ function Adminform({ onLoginSuccess }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
-        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Admin Login</h2>
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center px-4 py-8">
+      <div className="bg-white shadow-lg rounded-lg p-6 lg:p-8 w-full max-w-sm">
+        <h2 className="text-xl lg:text-2xl font-semibold text-center text-gray-800 mb-6">Admin Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input
@@ -61,7 +61,7 @@ function Adminform({ onLoginSuccess }) {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm lg:text-base"
             />
           </div>
           <div className="mb-6">
@@ -70,14 +70,14 @@ function Adminform({ onLoginSuccess }) {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm lg:text-base"
             />
           </div>
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-md text-white font-semibold ${
+            className={`w-full py-3 rounded-md text-white font-semibold text-sm lg:text-base transition-colors duration-200 ${
               loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
             }`}
           >

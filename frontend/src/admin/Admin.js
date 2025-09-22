@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTachometerAlt, faShoppingCart, faCreditCard, faUsers, faPlusCircle, faImages, faTags, faMapMarkerAlt, faQuestionCircle, faHome, faLayerGroup, faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faTachometerAlt, faShoppingCart, faCreditCard, faUsers, faPlusCircle, faImages, faTags, faMapMarkerAlt, faQuestionCircle, faHome, faLayerGroup, faCamera, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../components/Sidebar";
 import Dashboard from "../pages/Dashboard";
 import Order from "../pages/Order";
@@ -19,9 +19,19 @@ import Adminform from "./Adminform";
 function Admin() {
   const [page, setPage] = useState("dashboard");
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("admin_token"));
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
+  };
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    setSidebarOpen(false); // Close sidebar on mobile after navigation
   };
 
   const renderPage = () => {
@@ -55,7 +65,7 @@ function Admin() {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-200">
+      <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4">
         <Adminform onLoginSuccess={handleLoginSuccess} />
       </div>
     );
@@ -63,75 +73,106 @@ function Admin() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar with clickable icons */}
-      <div className="w-64 bg-gray-800 text-white p-6 shadow-lg space-y-6">
-        <div className="space-y-4">
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faTachometerAlt} />}
-            label="Dashboard"
-            onClick={() => setPage("dashboard")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faShoppingCart} />}
-            label="Orders"
-            onClick={() => setPage("order")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faCreditCard} />}
-            label="Payments"
-            onClick={() => setPage("payment")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faUsers} />}
-            label="Users"
-            onClick={() => setPage("users")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faPlusCircle} />}
-            label="Add Product"
-            onClick={() => setPage("Addproduct")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faImages} />}
-            label="Carousel Images"
-            onClick={() => setPage("carousel")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faCamera} />}
-            label="Photo Carousel"
-            onClick={() => setPage("photo-carousel")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faTags} />}
-            label="Categories"
-            onClick={() => setPage("categories")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faLayerGroup} />}
-            label="Subcategories"
-            onClick={() => setPage("subcategories")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faHome} />}
-            label="Homepage Categories"
-            onClick={() => setPage("homepage-categories")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
-            label="Locations"
-            onClick={() => setPage("locations")}
-          />
-          <SidebarIcon
-            icon={<FontAwesomeIcon icon={faQuestionCircle} />}
-            label="FAQs"
-            onClick={() => setPage("faqs")}
-          />
+      {/* Mobile Menu Button */}
+      <button
+        onClick={toggleSidebar}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-gray-800 text-white p-2 rounded-md shadow-lg"
+      >
+        <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} />
+      </button>
+
+      {/* Sidebar */}
+      <div className={`
+        fixed lg:static inset-y-0 left-0 z-40 w-64 bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+        <div className="p-6 space-y-6 h-full overflow-y-auto">
+          {/* Mobile close button */}
+          <div className="lg:hidden flex justify-end mb-4">
+            <button
+              onClick={toggleSidebar}
+              className="text-white hover:text-gray-300"
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          </div>
+          
+          <div className="space-y-4">
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faTachometerAlt} />}
+              label="Dashboard"
+              onClick={() => handlePageChange("dashboard")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faShoppingCart} />}
+              label="Orders"
+              onClick={() => handlePageChange("order")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faCreditCard} />}
+              label="Payments"
+              onClick={() => handlePageChange("payment")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faUsers} />}
+              label="Users"
+              onClick={() => handlePageChange("users")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faPlusCircle} />}
+              label="Add Product"
+              onClick={() => handlePageChange("Addproduct")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faImages} />}
+              label="Carousel Images"
+              onClick={() => handlePageChange("carousel")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faCamera} />}
+              label="Photo Carousel"
+              onClick={() => handlePageChange("photo-carousel")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faTags} />}
+              label="Categories"
+              onClick={() => handlePageChange("categories")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faLayerGroup} />}
+              label="Subcategories"
+              onClick={() => handlePageChange("subcategories")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faHome} />}
+              label="Homepage Categories"
+              onClick={() => handlePageChange("homepage-categories")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
+              label="Locations"
+              onClick={() => handlePageChange("locations")}
+            />
+            <SidebarIcon
+              icon={<FontAwesomeIcon icon={faQuestionCircle} />}
+              label="FAQs"
+              onClick={() => handlePageChange("faqs")}
+            />
+          </div>
         </div>
       </div>
 
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={toggleSidebar}
+        />
+      )}
+
       {/* Main Content */}
-      <div className="flex-1 p-6 bg-gray-50 overflow-auto">
-        <div className="bg-white shadow-xl rounded-lg p-6 space-y-6">
+      <div className="flex-1 lg:ml-0 ml-0 p-4 lg:p-6 bg-gray-50 overflow-auto">
+        <div className="bg-white shadow-xl rounded-lg p-4 lg:p-6 space-y-6">
           {renderPage()}
         </div>
       </div>
@@ -143,10 +184,10 @@ const SidebarIcon = ({ icon, label, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="flex items-center space-x-3 cursor-pointer hover:bg-gray-700 p-2 rounded-lg"
+      className="flex items-center space-x-3 cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200"
     >
-      {icon}
-      <span>{label}</span>
+      <span className="text-lg">{icon}</span>
+      <span className="text-sm lg:text-base">{label}</span>
     </div>
   );
 };
