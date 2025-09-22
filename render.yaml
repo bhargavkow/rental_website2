@@ -20,9 +20,9 @@ services:
       - key: RAZORPAY_KEY_SECRET
         sync: false
       - key: CORS_ORIGIN
-        value: https://rental-frontend.onrender.com
+        value: https://rental-website2-1eqwe.onrender.com
       - key: FRONTEND_URL
-        value: https://rental-frontend.onrender.com
+        value: https://rental-website2-1eqwe.onrender.com
 
   - type: static
     name: rental-frontend
