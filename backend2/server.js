@@ -141,6 +141,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
   console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
   console.log(`🏥 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🌐 CORS configured for: ${process.env.CORS_ORIGIN || 'localhost'}`);
 });
 
 module.exports = app;
