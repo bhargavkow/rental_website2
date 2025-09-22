@@ -31,34 +31,57 @@ npm start
 
 ## Deployment
 
-### Render.com Deployment (Recommended)
+### Render.com Deployment (Manual Setup Required)
 
-This project is configured for Render.com deployment using the `render.yaml` file.
+**IMPORTANT:** Since the Blueprint approach is not working properly, you need to create services manually on Render.
 
-**Important:** You need to create TWO separate services on Render:
-
-1. **Backend Service (Web Service):**
-   - Connect your GitHub repository: `https://github.com/bhargavkow/rental_website2.git`
-   - Service Type: Web Service
-   - Environment: Node.js
-   - Root Directory: `backend`
-   - Build Command: `npm install`
-   - Start Command: `npm start`
-   - Health Check Path: `/api/health`
-
-2. **Frontend Service (Static Site):**
-   - Connect your GitHub repository: `https://github.com/bhargavkow/rental_website2.git`
-   - Service Type: Static Site
-   - Root Directory: `rental_website`
-   - Build Command: `npm install && npm run build`
-   - Publish Directory: `build`
-
-### Using Render Blueprint
+#### Step 1: Create Backend Service
 
 1. Go to your Render dashboard
-2. Click "New" → "Blueprint"
+2. Click "New" → "Web Service"
 3. Connect your GitHub repository: `https://github.com/bhargavkow/rental_website2.git`
-4. Render will automatically detect the `render.yaml` file and create both services
+4. Configure the service:
+   - **Name:** `rental-backend`
+   - **Environment:** `Node`
+   - **Region:** Choose your preferred region
+   - **Branch:** `master`
+   - **Root Directory:** `backend`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Health Check Path:** `/api/health`
+
+5. Add Environment Variables:
+   - `NODE_ENV`: `production`
+   - `PORT`: `10000`
+   - Add your MongoDB connection string
+   - Add your Razorpay credentials
+
+6. Click "Create Web Service"
+
+#### Step 2: Create Frontend Service
+
+1. Go to your Render dashboard
+2. Click "New" → "Static Site"
+3. Connect your GitHub repository: `https://github.com/bhargavkow/rental_website2.git`
+4. Configure the service:
+   - **Name:** `rental-frontend`
+   - **Branch:** `master`
+   - **Root Directory:** `rental_website`
+   - **Build Command:** `npm install && npm run build`
+   - **Publish Directory:** `build`
+
+5. Add Environment Variables:
+   - `REACT_APP_API_URL`: Your backend service URL (e.g., `https://rental-backend.onrender.com`)
+
+6. Click "Create Static Site"
+
+### Alternative: Separate Repositories
+
+If the monorepo approach continues to cause issues, consider splitting into separate repositories:
+
+1. **Backend Repository:** Move `backend/` folder to a new repository
+2. **Frontend Repository:** Move `rental_website/` folder to a new repository
+3. Deploy each repository separately on Render
 
 ## Environment Variables
 

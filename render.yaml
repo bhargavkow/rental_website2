@@ -4,7 +4,7 @@ services:
     name: rental-backend
     env: node
     plan: free
-    rootDir: backend
+    rootDir: ./backend
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -19,7 +19,7 @@ services:
     name: rental-frontend
     env: static
     plan: free
-    rootDir: rental_website
+    rootDir: ./rental_website
     buildCommand: npm install && npm run build
     staticPublishPath: build
     routes:
