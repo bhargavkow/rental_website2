@@ -20,4 +20,15 @@ services:
       - key: RAZORPAY_KEY_SECRET
         sync: false
       - key: CORS_ORIGIN
-        value: https://your-frontend-url.onrender.com
+        value: https://rental-frontend.onrender.com
+      - key: FRONTEND_URL
+        value: https://rental-frontend.onrender.com
+
+  - type: static
+    name: rental-frontend
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://backend2-5tar.onrender.com
