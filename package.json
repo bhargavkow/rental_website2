@@ -13,10 +13,6 @@
     "dev-backend": "cd backend && npm run dev",
     "dev-frontend": "cd rental_website && npm start"
   },
-  "workspaces": [
-    "backend",
-    "rental_website"
-  ],
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"

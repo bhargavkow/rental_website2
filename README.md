@@ -9,7 +9,8 @@ rental_website2/
 ├── backend/           # Node.js/Express API
 ├── rental_website/    # React frontend
 ├── versel-backend/    # Vercel deployment backend
-└── render.yaml        # Render deployment configuration
+├── render.yaml        # Render deployment configuration
+└── .renderignore      # Render ignore file
 ```
 
 ## Local Development
@@ -30,49 +31,45 @@ npm start
 
 ## Deployment
 
-### Render.com Deployment
+### Render.com Deployment (Recommended)
 
 This project is configured for Render.com deployment using the `render.yaml` file.
 
-**Backend Service:**
-- Service Type: Web Service
-- Environment: Node.js
-- Build Command: `cd backend && npm install`
-- Start Command: `cd backend && npm start`
-- Health Check: `/api/health`
+**Important:** You need to create TWO separate services on Render:
 
-**Frontend Service:**
-- Service Type: Static Site
-- Build Command: `cd rental_website && npm install && npm run build`
-- Publish Directory: `rental_website/build`
-
-### Manual Render Setup
-
-If you prefer to set up services manually on Render:
-
-1. **Backend Service:**
-   - Connect your GitHub repository
-   - Set Root Directory to `backend`
+1. **Backend Service (Web Service):**
+   - Connect your GitHub repository: `https://github.com/bhargavkow/rental_website2.git`
+   - Service Type: Web Service
+   - Environment: Node.js
+   - Root Directory: `backend`
    - Build Command: `npm install`
    - Start Command: `npm start`
-   - Add environment variables as needed
+   - Health Check Path: `/api/health`
 
-2. **Frontend Service:**
-   - Connect your GitHub repository
-   - Set Root Directory to `rental_website`
+2. **Frontend Service (Static Site):**
+   - Connect your GitHub repository: `https://github.com/bhargavkow/rental_website2.git`
+   - Service Type: Static Site
+   - Root Directory: `rental_website`
    - Build Command: `npm install && npm run build`
    - Publish Directory: `build`
 
+### Using Render Blueprint
+
+1. Go to your Render dashboard
+2. Click "New" → "Blueprint"
+3. Connect your GitHub repository: `https://github.com/bhargavkow/rental_website2.git`
+4. Render will automatically detect the `render.yaml` file and create both services
+
 ## Environment Variables
 
-### Backend
-- `NODE_ENV`: production
-- `PORT`: 10000 (or your preferred port)
+### Backend Service
+- `NODE_ENV`: `production`
+- `PORT`: `10000` (or your preferred port)
 - MongoDB connection string
 - Razorpay credentials
 
-### Frontend
-- `REACT_APP_API_URL`: Your backend API URL
+### Frontend Service
+- `REACT_APP_API_URL`: Your backend API URL (will be provided by Render)
 
 ## API Endpoints
 
