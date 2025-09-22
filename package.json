@@ -1,0 +1,24 @@
+{
+  "name": "rental-website-monorepo",
+  "version": "1.0.0",
+  "description": "Rental website with React frontend and Node.js backend",
+  "private": true,
+  "scripts": {
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd rental_website && npm install",
+    "install-all": "npm run install-backend && npm run install-frontend",
+    "start-backend": "cd backend && npm start",
+    "start-frontend": "cd rental_website && npm start",
+    "build-frontend": "cd rental_website && npm run build",
+    "dev-backend": "cd backend && npm run dev",
+    "dev-frontend": "cd rental_website && npm start"
+  },
+  "workspaces": [
+    "backend",
+    "rental_website"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
