@@ -4,7 +4,7 @@
   "description": "Rental website full-stack application",
   "main": "backend/server.js",
   "scripts": {
-    "start": "cd backend && npm start",
+    "start": "cd backend && node server.js",
     "build": "cd backend && npm install",
     "dev": "cd backend && npm run dev",
     "install-backend": "cd backend && npm install",
