@@ -14,7 +14,7 @@ const SearchResults = () => {
   // API URLs to try
     const API_URLS = [
         API_URL,
-        'http://localhost:5000',
+        'https://backend2-5tar.onrender.com',
         'http://127.0.0.1:5000',
     'http://192.168.1.11:5000'
   ];
