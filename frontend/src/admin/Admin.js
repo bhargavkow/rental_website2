@@ -76,9 +76,9 @@ function Admin() {
       {/* Mobile Menu Button */}
       <button
         onClick={toggleSidebar}
-        className="lg:hidden fixed top-4 left-4 z-50 bg-gray-800 text-white p-2 rounded-md shadow-lg"
+        className="lg:hidden fixed top-4 left-4 z-[9999] bg-gray-800 text-white p-3 rounded-md shadow-xl border-2 border-white"
       >
-        <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} />
+        <FontAwesomeIcon icon={faBars} className="text-lg" />
       </button>
 
       {/* Sidebar */}
@@ -86,18 +86,18 @@ function Admin() {
         fixed lg:static inset-y-0 left-0 z-40 w-64 bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-        <div className="p-6 space-y-6 h-full overflow-y-auto">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 h-full overflow-y-auto">
           {/* Mobile close button */}
           <div className="lg:hidden flex justify-end mb-4">
             <button
               onClick={toggleSidebar}
-              className="text-white hover:text-gray-300"
+              className="text-white hover:text-gray-300 p-2 rounded-md hover:bg-gray-700 transition-colors"
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-2 sm:space-y-4">
             <SidebarIcon
               icon={<FontAwesomeIcon icon={faTachometerAlt} />}
               label="Dashboard"
@@ -171,8 +171,8 @@ function Admin() {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 lg:ml-0 ml-0 p-4 lg:p-6 bg-gray-50 overflow-auto">
-        <div className="bg-white shadow-xl rounded-lg p-4 lg:p-6 space-y-6">
+      <div className="flex-1 lg:ml-0 ml-0 p-2 sm:p-4 lg:p-6 bg-gray-50 overflow-auto">
+        <div className="bg-white shadow-xl rounded-lg p-2 sm:p-4 lg:p-6 space-y-4 sm:space-y-6 mt-16 lg:mt-0">
           {renderPage()}
         </div>
       </div>
@@ -184,10 +184,10 @@ const SidebarIcon = ({ icon, label, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="flex items-center space-x-3 cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200"
+      className="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:bg-gray-700 p-2 sm:p-3 rounded-lg transition-colors duration-200"
     >
-      <span className="text-lg">{icon}</span>
-      <span className="text-sm lg:text-base">{label}</span>
+      <span className="text-sm sm:text-lg">{icon}</span>
+      <span className="text-xs sm:text-sm lg:text-base">{label}</span>
     </div>
   );
 };

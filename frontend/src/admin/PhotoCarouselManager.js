@@ -221,12 +221,12 @@ const PhotoCarouselManager = () => {
   }
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Photo Carousel Manager</h2>
+    <div className="p-2 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Photo Carousel Manager</h2>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base w-full sm:w-auto"
         >
           Add New Item
         </button>
@@ -240,9 +240,9 @@ const PhotoCarouselManager = () => {
 
       {/* Form */}
       {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-xl font-bold mb-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <h3 className="text-lg sm:text-xl font-bold mb-4">
               {editingItem ? 'Edit Carousel Item' : 'Add New Carousel Item'}
             </h3>
             
@@ -364,21 +364,21 @@ const PhotoCarouselManager = () => {
           </div>
         ) : (
           carouselItems.map((item, index) => (
-            <div key={item._id} className="border border-gray-200 rounded-lg p-4">
-              <div className="flex items-center space-x-4">
+            <div key={item._id} className="border border-gray-200 rounded-lg p-3 sm:p-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <div className="flex-shrink-0">
                   <img
                     src={`${API_URL}${item.image}`}
                     alt={item.altText}
-                    className="w-20 h-20 object-fit rounded-md"
+                    className="w-16 h-16 sm:w-20 sm:h-20 object-fit rounded-md"
                   />
                 </div>
                 
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
-                  <p className="text-sm text-gray-600">Order: {item.order}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 truncate">{item.title}</h3>
+                  <p className="text-xs sm:text-sm text-gray-600">Order: {item.order}</p>
                   {item.link && (
-                    <p className="text-sm text-blue-600">Link: {item.link}</p>
+                    <p className="text-xs sm:text-sm text-blue-600 truncate">Link: {item.link}</p>
                   )}
                   <div className="flex items-center space-x-2 mt-2">
                     <span className={`px-2 py-1 text-xs rounded-full ${
@@ -391,16 +391,16 @@ const PhotoCarouselManager = () => {
                   </div>
                 </div>
 
-                <div className="flex space-x-2">
+                <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                   <button
                     onClick={() => handleEdit(item)}
-                    className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+                    className="px-2 sm:px-3 py-1 bg-blue-600 text-white text-xs sm:text-sm rounded hover:bg-blue-700 flex-1 sm:flex-none"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleToggleActive(item._id)}
-                    className={`px-3 py-1 text-sm rounded ${
+                    className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded flex-1 sm:flex-none ${
                       item.isActive
                         ? 'bg-yellow-600 text-white hover:bg-yellow-700'
                         : 'bg-green-600 text-white hover:bg-green-700'
@@ -410,7 +410,7 @@ const PhotoCarouselManager = () => {
                   </button>
                   <button
                     onClick={() => handleDelete(item._id)}
-                    className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+                    className="px-2 sm:px-3 py-1 bg-red-600 text-white text-xs sm:text-sm rounded hover:bg-red-700 flex-1 sm:flex-none"
                   >
                     Delete
                   </button>

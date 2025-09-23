@@ -110,6 +110,23 @@
     @apply pt-[80px];
   }
   
+  /* Ensure navbar doesn't overflow on mobile */
+  nav {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure auth buttons are properly responsive */
+  nav .auth-buttons {
+    min-width: 0;
+    flex-shrink: 0;
+  }
+  
+  /* Prevent button text from breaking */
+  nav button, nav a {
+    white-space: nowrap;
+  }
+  
   code {
     @apply font-mono;
   }

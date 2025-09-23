@@ -210,12 +210,12 @@ const HomepageCategoryManager = () => {
     if (loading) return <div className="p-4">Loading homepage categories...</div>;
 
     return (
-        <div className="p-4">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Manage Homepage Categories</h2>
+        <div className="p-2 sm:p-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold">Manage Homepage Categories</h2>
                 <button
                     onClick={handleAddNew}
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center"
+                    className="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-blue-700 flex items-center text-sm sm:text-base w-full sm:w-auto justify-center"
                 >
                     <FontAwesomeIcon icon={faPlus} className="mr-2" />
                     Add New Category
@@ -229,18 +229,19 @@ const HomepageCategoryManager = () => {
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef}>
                             <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                                <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50">
-                                        <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Display</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                        </tr>
-                                    </thead>
+                                <div className="overflow-x-auto">
+                                    <table className="min-w-full divide-y divide-gray-200">
+                                        <thead className="bg-gray-50">
+                                            <tr>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                                <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                                <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Display</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                            </tr>
+                                        </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {categories.map((category, index) => (
                                             <Draggable key={category._id} draggableId={String(category._id)} index={index}>
@@ -251,36 +252,36 @@ const HomepageCategoryManager = () => {
                                                         {...provided.dragHandleProps}
                                                         className={`${snapshot.isDragging ? 'bg-blue-50' : ''} hover:bg-gray-50`}
                                                     >
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                                                             <div className="flex flex-col items-center">
-                                                                <span className="text-sm font-medium text-gray-900">{category.homepageOrder}</span>
+                                                                <span className="text-xs sm:text-sm font-medium text-gray-900">{category.homepageOrder}</span>
                                                                 <div className="flex flex-col">
                                                                     <FontAwesomeIcon icon={faArrowUp} className="text-gray-400 cursor-pointer hover:text-gray-700 text-xs mb-1" />
                                                                     <FontAwesomeIcon icon={faArrowDown} className="text-gray-400 cursor-pointer hover:text-gray-700 text-xs mt-1" />
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                                                             <img 
                                                                 src={category.image.startsWith('http') ? category.image : `${API_URL}${category.image}`} 
                                                                 alt={category.name} 
-                                                                className="h-16 w-24 object-fit rounded" 
+                                                                className="h-12 w-16 sm:h-16 sm:w-24 object-fit rounded" 
                                                                 onError={(e) => {
                                                                     console.error('Image failed to load:', category.image);
                                                                     e.target.src = '/images/fallback-category.jpg';
                                                                 }}
                                                             />
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
-                                                            <div className="text-sm text-gray-900">{category.name}</div>
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-xs sm:text-sm text-gray-900 max-w-24 sm:max-w-none truncate">{category.name}</div>
                                                         </td>
-                                                        <td className="px-6 py-4">
+                                                        <td className="hidden sm:table-cell px-6 py-4">
                                                             <div className="text-sm text-gray-900 max-w-xs truncate">{category.description}</div>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
-                                                            <div className="text-sm text-gray-900">{category.linkTo || 'N/A'}</div>
+                                                        <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-900 max-w-24 truncate">{category.linkTo || 'N/A'}</div>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                                                             <button
                                                                 onClick={() => toggleDisplayOnHome(category._id, category.displayOnHome)}
                                                                 className={`px-2 py-1 text-xs rounded-full ${
@@ -292,10 +293,10 @@ const HomepageCategoryManager = () => {
                                                                 {category.displayOnHome ? 'Yes' : 'No'}
                                                             </button>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                             <button
                                                                 onClick={() => handleEdit(category)}
-                                                                className="text-indigo-600 hover:text-indigo-900 mr-3"
+                                                                className="text-indigo-600 hover:text-indigo-900 mr-2 sm:mr-3"
                                                             >
                                                                 <FontAwesomeIcon icon={faEdit} />
                                                             </button>
@@ -311,7 +312,8 @@ const HomepageCategoryManager = () => {
                                             </Draggable>
                                         ))}
                                     </tbody>
-                                </table>
+                                    </table>
+                                </div>
                             </div>
                             {provided.placeholder}
                         </div>
@@ -321,16 +323,16 @@ const HomepageCategoryManager = () => {
 
             {/* Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-                    <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 p-4">
+                    <div className="relative top-10 sm:top-20 mx-auto p-4 sm:p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
                         <div className="mt-3">
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-lg font-medium text-gray-900">
+                                <h3 className="text-base sm:text-lg font-medium text-gray-900">
                                     {isEditing ? 'Edit Homepage Category' : 'Add New Homepage Category'}
                                 </h3>
                                 <button
                                     onClick={() => setShowModal(false)}
-                                    className="text-gray-400 hover:text-gray-600"
+                                    className="text-gray-400 hover:text-gray-600 p-1"
                                 >
                                     <FontAwesomeIcon icon={faTimes} />
                                 </button>

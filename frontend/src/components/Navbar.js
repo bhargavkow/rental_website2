@@ -159,11 +159,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center glass-effect text-neutral-800 px-3 sm:px-6 lg:px-8 h-[80px] shadow-medium sticky top-0 z-[1000] backdrop-blur-[200px]">
+    <nav className="flex justify-between items-center glass-effect text-neutral-800 px-3 sm:px-6 lg:px-8 h-[80px] shadow-medium sticky top-0 z-[1000] backdrop-blur-[200px] w-full">
       {/* Logo & Hamburger */}
-      <div className="flex items-center">
+      <div className="flex items-center flex-shrink-0">
         <button
-          className="lg:hidden mr-2 sm:mr-4 text-xl sm:text-2xl"
+          className="xl:hidden mr-2 sm:mr-4 text-xl sm:text-2xl"
           aria-label="Toggle menu"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
@@ -181,10 +181,10 @@ const Navbar = () => {
 
       {/* Menu Links */}
       <div
-        className={`absolute lg:static top-[80px] left-0 w-full transition-all duration-300 ease-in-out z-[999] 
-        ${mobileOpen ? "block bg-white shadow-strong backdrop-blur-xl" : "hidden lg:block bg-transparent"}`}
+        className={`absolute xl:static top-[80px] left-0 right-0 xl:right-auto w-full xl:w-auto transition-all duration-300 ease-in-out z-[999] 
+        ${mobileOpen ? "block bg-white shadow-strong backdrop-blur-xl" : "hidden xl:block bg-transparent"}`}
       >
-        <ul className="flex flex-col  lg:flex-row gap-0 lg:gap-8 m-0 p-4 lg:p-0 lg:py-2 justify-center">
+        <ul className="flex flex-col xl:flex-row gap-0 xl:gap-8 m-0 p-4 xl:p-0 xl:py-2 justify-center w-full xl:w-auto">
           {/* Dynamic Categories */}
           {loading ? (
             <li className="text-center py-4 ">
@@ -194,11 +194,11 @@ const Navbar = () => {
             categories.map((category) => (
               <li key={category._id} className="relative group">
                 <div
-                  className="flex justify-between items-center lg:block lg:cursor-default cursor-pointer lg:cursor-pointer"
+                  className="flex justify-between items-center xl:block xl:cursor-default cursor-pointer xl:cursor-pointer"
                 >
                   {/* Mobile click handler */}
                   <div 
-                    className="lg:hidden flex-1"
+                    className="xl:hidden flex-1"
                     onClick={() => toggleDropdown(category._id)}
                   >
                     <Link
@@ -208,7 +208,7 @@ const Navbar = () => {
                     >
                       {category.categoryName}
                     </Link>
-                    <span className="lg:hidden">
+                    <span className="xl:hidden">
                       <i
                         className={`fas fa-chevron-${dropdownOpen[category._id] ? "up" : "down"} text-black`}
                       ></i>
@@ -216,7 +216,7 @@ const Navbar = () => {
                   </div>
                   
                   {/* Desktop version - no click handler */}
-                  <div className="hidden lg:block">
+                  <div className="hidden xl:block">
                     <Link
                       to={`/category/${category._id}`}
                       className="block text-neutral-700 font-semibold hover:text-gradient-secondary py-2 px-4 transition-all duration-300 hover:scale-105"
@@ -228,14 +228,14 @@ const Navbar = () => {
                 </div>
                 {subcategories[category._id] && subcategories[category._id].length > 0 && (
                   <div
-                    className={`lg:absolute lg:top-full bg-white lg:left-0 glass-effect shadow-strong w-48 rounded-2xl py-3 z-10 backdrop-blur-xl ${dropdownOpen[category._id] ? "block" : "hidden lg:group-hover:block"
+                    className={`xl:absolute xl:top-full bg-white xl:left-0 glass-effect shadow-strong w-48 rounded-2xl py-3 z-10 backdrop-blur-xl ${dropdownOpen[category._id] ? "block" : "hidden xl:group-hover:block"
                       }`}
                   >
                     {subcategories[category._id].map((subcategory) => (
                       <Link
                         key={subcategory._id}
                         to={`/category/${category._id}/subcategory/${subcategory._id}`}
-                        className="block text-neutral-700 font-semibold hover:bg-blue-500 hover:text-white py-3 px-6 rounded-xl mx-2 transition-all duration-300 hover:no-underline hover:scale-105 bg-gray-50 lg:bg-transparent"
+                        className="block text-neutral-700 font-semibold hover:bg-blue-500 hover:text-white py-3 px-6 rounded-xl mx-2 transition-all duration-300 hover:no-underline hover:scale-105 bg-gray-50 xl:bg-transparent"
                         onClick={closeMobile}
                       >
                         {subcategory.subcategoryName}
@@ -247,12 +247,74 @@ const Navbar = () => {
             ))
           )}
         </ul>
+
+        {/* Mobile Menu Items */}
+        <div className="xl:hidden border-t border-gray-200 mt-4 pt-4">
+          <div className="flex flex-col gap-3 px-4">
+            {/* Favorites */}
+            <Link
+              to="/favorite"
+              className="flex items-center gap-3 text-neutral-700 font-semibold py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300"
+              onClick={closeMobile}
+            >
+              <div className="relative">
+                <i className="fa-regular fa-heart text-lg"></i>
+                {favorites.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full py-0.5 px-1.5 text-xs font-bold shadow-lg border-2 border-white">
+                    {favorites.length}
+                  </span>
+                )}
+              </div>
+              <span>Favorites ({favorites.length})</span>
+            </Link>
+
+            {/* Shopping Bag */}
+            <Link
+              to="/Bag"
+              className="flex items-center gap-3 text-neutral-700 font-semibold py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300"
+              onClick={closeMobile}
+            >
+              <i className="fa-solid fa-cart-shopping text-lg"></i>
+              <span>Shopping Bag</span>
+            </Link>
+
+            {/* Auth Buttons */}
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300"
+              >
+                <i className="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="flex items-center gap-3 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] hover:from-[#1E3A8A] hover:to-[#2563EB] text-white font-semibold py-3 px-4 rounded-lg no-underline transition-all duration-300"
+                  onClick={closeMobile}
+                >
+                  <i className="fas fa-sign-in-alt"></i>
+                  <span>Login</span>
+                </Link>
+                <Link
+                  to="/signup"
+                  className="flex items-center gap-3 bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white font-semibold py-3 px-4 rounded-lg no-underline transition-all duration-300"
+                  onClick={closeMobile}
+                >
+                  <i className="fas fa-user-plus"></i>
+                  <span>SignUp</span>
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* Right Side */}
-      <div className="flex items-center gap-2 sm:gap-3 lg:gap-5">
-        {/* Search (desktop only) */}
-        <form onSubmit={handleSearch} className="relative w-64 hidden sm:block">
+      {/* Right Side - Desktop Only */}
+      <div className="hidden xl:flex items-center gap-3 flex-shrink-0">
+        {/* Search */}
+        <form onSubmit={handleSearch} className="relative w-64">
           <input
             type="text"
             placeholder="Search..."
@@ -271,12 +333,12 @@ const Navbar = () => {
         {/* Favorites */}
         <Link
           to="/favorite"
-          className="relative text-lg sm:text-xl lg:text-2xl text-neutral-700 hover:text-gradient-secondary transition-all duration-300 hover:scale-110"
+          className="relative text-xl text-neutral-700 hover:text-gradient-secondary transition-all duration-300 hover:scale-110"
           onClick={closeMobile}
         >
           <i className="fa-regular fa-heart"></i>
           {favorites.length > 0 && (
-            <span className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-2.5 bg-red-600 text-white rounded-full py-0.5 px-1 sm:py-1 sm:px-2 text-xs font-bold shadow-lg border-2 border-white">
+            <span className="absolute -top-1.5 -right-2.5 bg-red-600 text-white rounded-full py-1 px-2 text-xs font-bold shadow-lg border-2 border-white">
               {favorites.length}
             </span>
           )}
@@ -285,48 +347,62 @@ const Navbar = () => {
         {/* Cart */}
         <Link
           to="/Bag"
-          className="text-lg sm:text-xl lg:text-2xl text-neutral-700 hover:text-gradient-accent transition-all duration-300 hover:scale-110"
+          className="text-xl text-neutral-700 hover:text-gradient-accent transition-all duration-300 hover:scale-110"
           onClick={closeMobile}
         >
           <i className="fa-solid fa-cart-shopping"></i>
         </Link>
 
-        {/* Auth */}
+        {/* Auth - Desktop Only */}
         {isLoggedIn ? (
           <>
             <button
               onClick={handleProfileClick}
-              className="text-lg sm:text-xl lg:text-2xl text-neutral-700 hover:text-gradient-primary transition-all duration-300 hover:scale-110"
+              className="text-xl text-neutral-700 hover:text-gradient-primary transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-100"
             >
               <i className="fa-regular fa-user"></i>
             </button>
             <button
               onClick={handleLogout}
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-1 px-2 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-2 px-4 rounded-full text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 whitespace-nowrap"
             >
-              <i className="fas fa-sign-out-alt"></i>
-              <span className="hidden sm:inline">Logout</span>
+              <i className="fas fa-sign-out-alt text-sm"></i>
+              <span>Logout</span>
             </button>
           </>
         ) : (
           <>
             <Link
               to="/login"
-              className="bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] hover:from-[#1E3A8A] hover:to-[#2563EB] text-white py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-sm rounded-full no-underline transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+              className="bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] hover:from-[#1E3A8A] hover:to-[#2563EB] text-white py-2 px-4 text-sm font-medium rounded-full no-underline transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 whitespace-nowrap"
               onClick={closeMobile}
             >
-              <i className="fas fa-sign-in-alt"></i>
-              <span className="hidden sm:inline">Login</span>
+              <i className="fas fa-sign-in-alt text-sm"></i>
+              <span>Login</span>
             </Link>
             <Link
               to="/signup"
-              className="bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-sm rounded-full no-underline transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+              className="bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white py-2 px-4 text-sm font-medium rounded-full no-underline transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 whitespace-nowrap"
               onClick={closeMobile}
             >
-              <i className="fas fa-user-plus"></i>
-              <span className="hidden sm:inline">SignUp</span>
+              <i className="fas fa-user-plus text-sm"></i>
+              <span>SignUp</span>
             </Link>
           </>
+        )}
+      </div>
+
+      {/* Mobile Right Side - Show profile icon when logged in */}
+      <div className="xl:hidden flex items-center gap-2 flex-shrink-0">
+        {/* Profile Icon - Mobile */}
+        {isLoggedIn && (
+          <button
+            onClick={handleProfileClick}
+            className="text-xl text-neutral-700 hover:text-gradient-primary transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-100"
+            title="Profile"
+          >
+            <i className="fa-regular fa-user"></i>
+          </button>
         )}
       </div>
     </nav>

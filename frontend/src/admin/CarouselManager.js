@@ -203,12 +203,12 @@ const CarouselManager = () => {
     if (loading) return <div className="p-4">Loading carousel images...</div>;
 
     return (
-        <div className="p-4">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Manage Carousel Images</h2>
+        <div className="p-2 sm:p-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold">Manage Carousel Images</h2>
                 <button
                     onClick={handleAddNew}
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center"
+                    className="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-blue-700 flex items-center text-sm sm:text-base w-full sm:w-auto justify-center"
                 >
                     <FontAwesomeIcon icon={faPlus} className="mr-2" />
                     Add New Image
@@ -228,17 +228,18 @@ const CarouselManager = () => {
                             {carouselImages.length === 0 ? (
                                 <div className="p-4 text-center text-gray-500">No carousel images found. Add your first one!</div>
                             ) : (
-                                <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50">
-                                        <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                        </tr>
-                                    </thead>
+                                <div className="overflow-x-auto">
+                                    <table className="min-w-full divide-y divide-gray-200">
+                                        <thead className="bg-gray-50">
+                                            <tr>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                                <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                            </tr>
+                                        </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {carouselImages.map((image, index) => (
                                             <Draggable key={image._id} draggableId={String(image._id)} index={index}>
@@ -249,20 +250,20 @@ const CarouselManager = () => {
                                                         {...provided.dragHandleProps}
                                                         className="hover:bg-gray-50"
                                                     >
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
-                                                                <span className="text-sm text-gray-900">{index + 1}</span>
-                                                                <div className="ml-2 flex flex-col">
+                                                                <span className="text-xs sm:text-sm text-gray-900">{index + 1}</span>
+                                                                <div className="ml-1 sm:ml-2 flex flex-col">
                                                                     <FontAwesomeIcon icon={faArrowUp} className="text-gray-400 cursor-pointer hover:text-gray-700 text-xs" />
                                                                     <FontAwesomeIcon icon={faArrowDown} className="text-gray-400 cursor-pointer hover:text-gray-700 text-xs mt-1" />
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                                             <img 
                                                 src={image.image.startsWith('http') ? image.image : `${API_URL}${image.image}`} 
                                                 alt={image.title} 
-                                                className="h-16 w-24 object-cover rounded" 
+                                                className="h-12 w-16 sm:h-16 sm:w-24 object-cover rounded" 
                                                 onError={(e) => {
                                                     console.error('Image failed to load:', image.image);
                                                     e.target.src = `${API_URL}/uploads/fallback-carousel.jpg`;
@@ -270,24 +271,24 @@ const CarouselManager = () => {
                                                 }}
                                             />
                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
-                                                            <div className="text-sm text-gray-900">{image.title}</div>
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-xs sm:text-sm text-gray-900 max-w-32 sm:max-w-none truncate">{image.title}</div>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap">
                                                             <div className="text-sm text-gray-500 truncate max-w-xs">{image.link}</div>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                                                             <button
                                                                 onClick={() => toggleActive(image._id, image.isActive)}
-                                                                className={`px-3 py-1 rounded text-sm font-medium ${image.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+                                                                className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium ${image.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
                                                             >
                                                                 {image.isActive ? 'Active' : 'Inactive'}
                                                             </button>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                             <button
                                                                 onClick={() => handleEdit(image)}
-                                                                className="text-indigo-600 hover:text-indigo-900 mr-3"
+                                                                className="text-indigo-600 hover:text-indigo-900 mr-2 sm:mr-3"
                                                             >
                                                                 <FontAwesomeIcon icon={faEdit} />
                                                             </button>
@@ -303,7 +304,8 @@ const CarouselManager = () => {
                                             </Draggable>
                                         ))}
                                     </tbody>
-                                </table>
+                                    </table>
+                                </div>
                             )}
                             {provided.placeholder}
                         </div>
@@ -313,13 +315,13 @@ const CarouselManager = () => {
 
             {/* Modal for Add/Edit */}
             {showModal && (
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold">{isEditing ? 'Edit Carousel Image' : 'Add New Carousel Image'}</h3>
+                            <h3 className="text-lg sm:text-xl font-bold">{isEditing ? 'Edit Carousel Image' : 'Add New Carousel Image'}</h3>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="text-gray-500 hover:text-gray-700"
+                                className="text-gray-500 hover:text-gray-700 p-1"
                             >
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>

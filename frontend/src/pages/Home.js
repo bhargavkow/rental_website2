@@ -193,53 +193,53 @@ function Home() {
       </div>
 
       {/* Services Section */}
-      <div className="bg-gradient-to-br from-[#93C5FD] via-white to-[#3B82F6] mx-auto my-16 max-w-7xl p-8 rounded-3xl shadow-lg">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+      <div className="bg-gradient-to-br from-[#93C5FD] via-white to-[#3B82F6] mx-auto my-16 max-w-7xl p-4 sm:p-6 lg:p-8 rounded-3xl shadow-lg">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8">
           <div className="flex flex-col items-center text-center hover-lift">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-4 shadow-medium">
-              <img src={plan} alt="Plan" className="w-12 h-12 filter brightness-0 invert" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-medium">
+              <img src={plan} alt="Plan" className="w-8 h-8 sm:w-12 sm:h-12 filter brightness-0 invert" />
             </div>
-            <p className="text-sm font-semibold text-[#1E40AF]">All India Delivery</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#1E40AF]">All India Delivery</p>
           </div>
           <div className="flex flex-col items-center text-center hover-lift">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-4 shadow-medium">
-              <img src={easy_return} alt="Easy Return" className="w-12 h-12 filter brightness-0 invert" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-medium">
+              <img src={easy_return} alt="Easy Return" className="w-8 h-8 sm:w-12 sm:h-12 filter brightness-0 invert" />
             </div>
-            <p className="text-sm font-semibold text-[#1E40AF]">Quality Check</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#1E40AF]">Quality Check</p>
           </div>
           <div className="flex flex-col items-center text-center hover-lift">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-4 shadow-medium">
-              <img src={cod} alt="COD" className="w-12 h-12 filter brightness-0 invert" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-medium">
+              <img src={cod} alt="COD" className="w-8 h-8 sm:w-12 sm:h-12 filter brightness-0 invert" />
             </div>
-            <p className="text-sm font-semibold text-[#1E40AF]">COD (Advance)</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#1E40AF]">COD (Advance)</p>
           </div>
           <div className="flex flex-col items-center text-center hover-lift">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-4 shadow-medium">
-              <img src={qc} alt="Quality Check" className="w-12 h-12 filter brightness-0 invert" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-medium">
+              <img src={qc} alt="Quality Check" className="w-8 h-8 sm:w-12 sm:h-12 filter brightness-0 invert" />
             </div>
-            <p className="text-sm font-semibold text-[#1E40AF]">Certified</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#1E40AF]">Certified</p>
           </div>
           <div className="flex flex-col items-center text-center hover-lift">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-4 shadow-medium">
-              <img src={free_trail} alt="Free Trial" className="w-12 h-12 filter brightness-0 invert" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-medium">
+              <img src={free_trail} alt="Free Trial" className="w-8 h-8 sm:w-12 sm:h-12 filter brightness-0 invert" />
             </div>
-            <p className="text-sm font-semibold text-[#1E40AF]">Free Trial</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#1E40AF]">Free Trial</p>
           </div>
           <div className="flex flex-col items-center text-center hover-lift">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-4 shadow-medium">
-              <img src={shipping} alt="Shipping" className="w-12 h-12 filter brightness-0 invert" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-medium">
+              <img src={shipping} alt="Shipping" className="w-8 h-8 sm:w-12 sm:h-12 filter brightness-0 invert" />
             </div>
-            <p className="text-sm font-semibold text-[#1E40AF]">Shipping</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#1E40AF]">Shipping</p>
           </div>
         </div>
       </div>
 
       {/* Categories Section */}
-      <div className="bg-gradient-to-br from-[#93C5FD] via-white to-[#3B82F6] mb-16 p-8 rounded-3xl mx-auto max-w-7xl shadow-lg">
-        <div className="text-center mb-12">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-clip-text text-transparent my-8 font-serif animate-fade-in">CATEGORIES</h1>
+      <div className="bg-gradient-to-br from-[#93C5FD] via-white to-[#3B82F6] mb-16 p-4 sm:p-6 lg:p-8 rounded-3xl mx-auto max-w-7xl shadow-lg">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-clip-text text-transparent my-4 sm:my-6 lg:my-8 font-serif animate-fade-in">CATEGORIES</h1>
         </div>
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8 justify-items-center">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4 lg:px-8 justify-items-center">
           {categories.length > 0 ? (
             categories.map((category, index) => {
               // Define category text based on position
@@ -255,8 +255,8 @@ function Home() {
               });
               
               return (
-                <a href={categoryLink} className="group" key={category._id}>
-                  <div className="card w-96 h-96 overflow-hidden hover-lift relative">
+                <a href={categoryLink} className="group w-full max-w-sm" key={category._id}>
+                  <div className="card w-full h-64 sm:h-80 lg:h-96 overflow-hidden hover-lift relative">
                     <img
                       src={category.imageUrl}
                       alt={category.category_name}
@@ -265,7 +265,7 @@ function Home() {
                     {/* Dynamic category text overlay */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                       <div className="text-center transform group-hover:scale-110 transition-transform duration-300">
-                        <h2 className="text-white text-4xl font-bold">{hoverText}</h2>
+                        <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">{hoverText}</h2>
                       </div>
                     </div>
                   </div>
@@ -273,9 +273,9 @@ function Home() {
               );
             })
           ) : (
-            <div className="text-center py-16">
+            <div className="text-center py-16 col-span-full">
               <div className="card-glass p-8">
-                <p className="text-xl text-neutral-600">No categories available. Please check back later.</p>
+                <p className="text-lg sm:text-xl text-neutral-600">No categories available. Please check back later.</p>
               </div>
             </div>
           )}
@@ -283,28 +283,28 @@ function Home() {
       </div>
 
       {/* Query Section */}
-      <div className="bg-gradient-to-br from-[#93C5FD] via-white to-[#3B82F6] mb-16 p-8 rounded-3xl mx-auto max-w-7xl shadow-lg">
-        <div className="text-center mb-12">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-clip-text text-transparent my-8 font-serif animate-fade-in">QUERY</h1>
+      <div className="bg-gradient-to-br from-[#93C5FD] via-white to-[#3B82F6] mb-16 p-4 sm:p-6 lg:p-8 rounded-3xl mx-auto max-w-7xl shadow-lg">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-clip-text text-transparent my-4 sm:my-6 lg:my-8 font-serif animate-fade-in">QUERY</h1>
         </div>
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 px-8 justify-items-center">
-          <a href="/Help" className="group">
-            <div className="card w-110 h-96 overflow-hidden hover-lift relative">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4 lg:px-8 justify-items-center">
+          <a href="/Help" className="group w-full max-w-md">
+            <div className="card w-full h-64 sm:h-80 lg:h-96 overflow-hidden hover-lift relative">
               <img
                 src={helpimg}
                 alt="Help"
-                className="w-full h-full object-fit transition-all duration-500 group-hover:scale-110 group-hover:rotate-2"
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:rotate-2"
               />
               {/* Dynamic category text overlay */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                 <div className="text-center transform group-hover:scale-110 transition-transform duration-300">
-                  <h2 className="text-white text-4xl font-bold">HELP</h2>
+                  <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">HELP</h2>
                 </div>
               </div>
             </div>
           </a>
-          <a href="/ContactUs" className="group">
-            <div className="card w-110 h-96 overflow-hidden hover-lift relative">
+          <a href="/ContactUs" className="group w-full max-w-md">
+            <div className="card w-full h-64 sm:h-80 lg:h-96 overflow-hidden hover-lift relative">
               <img
                 src={contactimg}
                 alt="Contact Us"
@@ -313,7 +313,7 @@ function Home() {
               {/* Dynamic category text overlay */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                 <div className="text-center transform group-hover:scale-110 transition-transform duration-300">
-                  <h2 className="text-white text-4xl font-bold">CONTACT</h2>
+                  <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">CONTACT</h2>
                 </div>
               </div>
             </div>
