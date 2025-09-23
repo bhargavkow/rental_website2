@@ -1,11 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FavoritesContext } from "../context/FavoritesContext";
+import { useCart } from "../context/CartContext";
 import axios from "axios";
 import { API_URL } from "../config";
 
 const Navbar = () => {
   const { favorites } = useContext(FavoritesContext);
+  const { cart } = useCart();
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -182,13 +184,16 @@ const Navbar = () => {
       {/* Menu Links */}
       <div
         className={`absolute xl:static top-[80px] left-0 right-0 xl:right-auto w-full xl:w-auto transition-all duration-300 ease-in-out z-[999] 
-        ${mobileOpen ? "block bg-white shadow-strong backdrop-blur-xl" : "hidden xl:block bg-transparent"}`}
+        ${mobileOpen ? "block bg-white/95 backdrop-blur-xl shadow-2xl border-t border-gray-100" : "hidden xl:block bg-transparent"}`}
       >
-        <ul className="flex flex-col xl:flex-row gap-0 xl:gap-8 m-0 p-4 xl:p-0 xl:py-2 justify-center w-full xl:w-auto">
+        <ul className="flex flex-col xl:flex-row gap-0 xl:gap-8 m-0 p-6 xl:p-0 xl:py-2 justify-center w-full xl:w-auto">
           {/* Dynamic Categories */}
           {loading ? (
-            <li className="text-center py-4 ">
-              <span className="text-gray-500">Loading categories...</span>
+            <li className="text-center py-6">
+              <div className="flex items-center justify-center gap-3">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+                <span className="text-gray-600 font-medium">Loading categories...</span>
+              </div>
             </li>
           ) : (
             categories.map((category) => (
@@ -201,18 +206,20 @@ const Navbar = () => {
                     className="xl:hidden flex-1"
                     onClick={() => toggleDropdown(category._id)}
                   >
-                    <Link
-                      to={`/category/${category._id}`}
-                      className="block text-neutral-700 font-semibold hover:text-gradient-secondary py-2 px-4 transition-all duration-300 hover:scale-105 bg-white rounded-lg"
-                      onClick={closeMobile}
-                    >
-                      {category.categoryName}
-                    </Link>
-                    <span className="xl:hidden">
-                      <i
-                        className={`fas fa-chevron-${dropdownOpen[category._id] ? "up" : "down"} text-black`}
-                      ></i>
-                    </span>
+                    <div className="flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-blue-100 rounded-xl p-4 mb-2 transition-all duration-300 hover:shadow-md">
+                      <Link
+                        to={`/category/${category._id}`}
+                        className="text-neutral-700 font-semibold hover:text-blue-600 transition-all duration-300 flex-1"
+                        onClick={closeMobile}
+                      >
+                        {category.categoryName}
+                      </Link>
+                      <div className="ml-3">
+                        <i
+                          className={`fas fa-chevron-${dropdownOpen[category._id] ? "up" : "down"} text-blue-600 transition-all duration-300`}
+                        ></i>
+                      </div>
+                    </div>
                   </div>
                   
                   {/* Desktop version - no click handler */}
@@ -249,60 +256,39 @@ const Navbar = () => {
         </ul>
 
         {/* Mobile Menu Items */}
-        <div className="xl:hidden border-t border-gray-200 mt-4 pt-4">
-          <div className="flex flex-col gap-3 px-4">
-            {/* Favorites */}
-            <Link
-              to="/favorite"
-              className="flex items-center gap-3 text-neutral-700 font-semibold py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300"
-              onClick={closeMobile}
-            >
-              <div className="relative">
-                <i className="fa-regular fa-heart text-lg"></i>
-                {favorites.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full py-0.5 px-1.5 text-xs font-bold shadow-lg border-2 border-white">
-                    {favorites.length}
-                  </span>
-                )}
-              </div>
-              <span>Favorites ({favorites.length})</span>
-            </Link>
-
-            {/* Shopping Bag */}
-            <Link
-              to="/Bag"
-              className="flex items-center gap-3 text-neutral-700 font-semibold py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300"
-              onClick={closeMobile}
-            >
-              <i className="fa-solid fa-cart-shopping text-lg"></i>
-              <span>Shopping Bag</span>
-            </Link>
-
+        <div className="xl:hidden border-t border-gray-200 mt-6 pt-6">
+          <div className="flex flex-col gap-4 px-6">
             {/* Auth Buttons */}
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300"
+                className="flex items-center justify-center gap-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
-                <i className="fas fa-sign-out-alt"></i>
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <i className="fas fa-sign-out-alt text-sm"></i>
+                </div>
                 <span>Logout</span>
               </button>
             ) : (
               <>
                 <Link
                   to="/login"
-                  className="flex items-center gap-3 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] hover:from-[#1E3A8A] hover:to-[#2563EB] text-white font-semibold py-3 px-4 rounded-lg no-underline transition-all duration-300"
+                  className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] hover:from-[#1E3A8A] hover:to-[#2563EB] text-white font-semibold py-4 px-6 rounded-xl no-underline transition-all duration-300 hover:scale-105 hover:shadow-lg"
                   onClick={closeMobile}
                 >
-                  <i className="fas fa-sign-in-alt"></i>
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                    <i className="fas fa-sign-in-alt text-sm"></i>
+                  </div>
                   <span>Login</span>
                 </Link>
                 <Link
                   to="/signup"
-                  className="flex items-center gap-3 bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white font-semibold py-3 px-4 rounded-lg no-underline transition-all duration-300"
+                  className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white font-semibold py-4 px-6 rounded-xl no-underline transition-all duration-300 hover:scale-105 hover:shadow-lg"
                   onClick={closeMobile}
                 >
-                  <i className="fas fa-user-plus"></i>
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                    <i className="fas fa-user-plus text-sm"></i>
+                  </div>
                   <span>SignUp</span>
                 </Link>
               </>
@@ -392,8 +378,38 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile Right Side - Show profile icon when logged in */}
+      {/* Mobile Right Side - Show favorite, bag, and profile icons */}
       <div className="xl:hidden flex items-center gap-2 flex-shrink-0">
+        {/* Favorites - Mobile */}
+        <Link
+          to="/favorite"
+          className="relative text-xl text-neutral-700 hover:text-gradient-secondary transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-100"
+          onClick={closeMobile}
+          title="Favorites"
+        >
+          <i className="fa-regular fa-heart"></i>
+          {favorites.length > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full py-0.5 px-1.5 text-xs font-bold shadow-lg border-2 border-white">
+              {favorites.length}
+            </span>
+          )}
+        </Link>
+
+        {/* Shopping Bag - Mobile */}
+        <Link
+          to="/Bag"
+          className="relative text-xl text-neutral-700 hover:text-gradient-accent transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-100"
+          onClick={closeMobile}
+          title="Shopping Bag"
+        >
+          <i className="fa-solid fa-cart-shopping"></i>
+          {cart.length > 0 && (
+            <span className="absolute -top-1 -right-1 bg-blue-600 text-white rounded-full py-0.5 px-1.5 text-xs font-bold shadow-lg border-2 border-white">
+              {cart.length}
+            </span>
+          )}
+        </Link>
+
         {/* Profile Icon - Mobile */}
         {isLoggedIn && (
           <button

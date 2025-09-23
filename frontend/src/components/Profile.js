@@ -82,11 +82,11 @@ const Profile = () => {
       <Navbar />
 
       {/* Enhanced Heading */}
-      <div className="relative text-center mt-16 mb-12">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-clip-text text-transparent mb-4 font-serif">
+      <div className="relative text-center mt-16 mb-8 lg:mb-12">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-clip-text text-transparent mb-4 font-serif">
           User Profile
         </h1>
-        <div className="w-32 h-1 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] mx-auto rounded-full"></div>
+        <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] mx-auto rounded-full"></div>
       </div>
 
       {/* Loading State */}
@@ -107,52 +107,52 @@ const Profile = () => {
       {/* Main Layout */}
       {!loading && !error && (
         <div className="flex justify-center px-4 relative z-10">
-          <div className="flex flex-wrap w-full max-w-7xl gap-8 p-6">
+          <div className="flex flex-col lg:flex-row w-full max-w-7xl gap-6 lg:gap-8 p-4 lg:p-6">
             {/* Enhanced Sidebar */}
-            <div className="flex-none w-80 bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-300">
+            <div className="w-full lg:flex-none lg:w-80 bg-white/90 backdrop-blur-sm p-6 lg:p-8 rounded-3xl shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-300">
               {/* Profile Avatar Section */}
-              <div className="text-center mb-8">
-                <div className="w-24 h-24 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
-                  <span className="text-white text-3xl font-bold">
+              <div className="text-center mb-6 lg:mb-8">
+                <div className="w-20 h-20 lg:w-24 lg:h-24 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                  <span className="text-white text-2xl lg:text-3xl font-bold">
                     {(profileData?.firstName || profileData?.fullName || 'U').charAt(0).toUpperCase()}
                   </span>
                 </div>
-                <h2 className="text-2xl font-bold text-[#1E40AF] mb-2">
+                <h2 className="text-xl lg:text-2xl font-bold text-[#1E40AF] mb-2">
                   Hello, {profileData?.firstName || profileData?.fullName}!
                 </h2>
                 <p className="text-[#3B82F6] text-sm font-medium">Welcome back to your account</p>
               </div>
 
               {/* Navigation Links */}
-              <div className="space-y-4">
+              <div className="space-y-3 lg:space-y-4">
                 <Link
                   to="/Bag"
-                  className="group flex items-center w-full py-4 px-6 bg-gradient-to-r from-[#93C5FD] to-[#3B82F6] rounded-2xl text-white font-medium transition-all duration-300 hover:from-[#3B82F6] hover:to-[#1E40AF] hover:scale-105 hover:shadow-lg hover:no-underline"
+                  className="group flex items-center w-full py-3 lg:py-4 px-4 lg:px-6 bg-gradient-to-r from-[#93C5FD] to-[#3B82F6] rounded-2xl text-white font-medium transition-all duration-300 hover:from-[#3B82F6] hover:to-[#1E40AF] hover:scale-105 hover:shadow-lg hover:no-underline"
                 >
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4 group-hover:bg-white/30 transition-colors duration-300">
-                    <i className="fa-solid fa-cart-shopping text-lg"></i>
+                  <div className="w-8 h-8 lg:w-10 lg:h-10 bg-white/20 rounded-full flex items-center justify-center mr-3 lg:mr-4 group-hover:bg-white/30 transition-colors duration-300">
+                    <i className="fa-solid fa-cart-shopping text-base lg:text-lg"></i>
                   </div>
-                  <span className="text-lg">Your Bag</span>
+                  <span className="text-base lg:text-lg">Your Bag</span>
                 </Link>
                 
                 <Link
                   to="/Favorite"
-                  className="group flex items-center w-full py-4 px-6 bg-gradient-to-r from-[#93C5FD] to-[#3B82F6] rounded-2xl text-white font-medium transition-all duration-300 hover:from-[#3B82F6] hover:to-[#1E40AF] hover:scale-105 hover:shadow-lg hover:no-underline"
+                  className="group flex items-center w-full py-3 lg:py-4 px-4 lg:px-6 bg-gradient-to-r from-[#93C5FD] to-[#3B82F6] rounded-2xl text-white font-medium transition-all duration-300 hover:from-[#3B82F6] hover:to-[#1E40AF] hover:scale-105 hover:shadow-lg hover:no-underline"
                 >
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4 group-hover:bg-white/30 transition-colors duration-300">
-                    <i className="fa-regular fa-heart text-lg"></i>
+                  <div className="w-8 h-8 lg:w-10 lg:h-10 bg-white/20 rounded-full flex items-center justify-center mr-3 lg:mr-4 group-hover:bg-white/30 transition-colors duration-300">
+                    <i className="fa-regular fa-heart text-base lg:text-lg"></i>
                   </div>
-                  <span className="text-lg">Favorites</span>
+                  <span className="text-base lg:text-lg">Favorites</span>
                 </Link>
                 
                 <Link
                   to="/Confirmorder"
-                  className="group flex items-center w-full py-4 px-6 bg-gradient-to-r from-[#93C5FD] to-[#3B82F6] rounded-2xl text-white font-medium transition-all duration-300 hover:from-[#3B82F6] hover:to-[#1E40AF] hover:scale-105 hover:shadow-lg hover:no-underline"
+                  className="group flex items-center w-full py-3 lg:py-4 px-4 lg:px-6 bg-gradient-to-r from-[#93C5FD] to-[#3B82F6] rounded-2xl text-white font-medium transition-all duration-300 hover:from-[#3B82F6] hover:to-[#1E40AF] hover:scale-105 hover:shadow-lg hover:no-underline"
                 >
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4 group-hover:bg-white/30 transition-colors duration-300">
-                    <i className="fa-solid fa-check-circle text-lg"></i>
+                  <div className="w-8 h-8 lg:w-10 lg:h-10 bg-white/20 rounded-full flex items-center justify-center mr-3 lg:mr-4 group-hover:bg-white/30 transition-colors duration-300">
+                    <i className="fa-solid fa-check-circle text-base lg:text-lg"></i>
                   </div>
-                  <span className="text-lg">Confirm Order</span>
+                  <span className="text-base lg:text-lg">Confirm Order</span>
                 </Link>
               </div>
 
@@ -170,18 +170,18 @@ const Profile = () => {
           </div>
 
           {/* Enhanced Profile Info */}
-          <div className="flex-1 bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-300 min-w-80">
-            <header className="mb-8">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-4">
-                  <i className="fa-solid fa-user text-white text-lg"></i>
+          <div className="flex-1 bg-white/90 backdrop-blur-sm p-6 lg:p-8 rounded-3xl shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-300 min-w-0">
+            <header className="mb-6 lg:mb-8">
+              <div className="flex items-center mb-4 lg:mb-6">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-3 lg:mr-4">
+                  <i className="fa-solid fa-user text-white text-base lg:text-lg"></i>
                 </div>
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] bg-clip-text text-transparent">
+                <h2 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] bg-clip-text text-transparent">
                   Personal Information
                 </h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-user text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Full Name</span>
@@ -189,7 +189,7 @@ const Profile = () => {
                   <p className="text-[#3B82F6] font-medium">{profileData?.fullName || `${profileData?.firstName} ${profileData?.lastName}`}</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-envelope text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Email Address</span>
@@ -197,7 +197,7 @@ const Profile = () => {
                   <p className="text-[#3B82F6] font-medium">{profileData?.email}</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-at text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Username</span>
@@ -205,7 +205,7 @@ const Profile = () => {
                   <p className="text-[#3B82F6] font-medium">{profileData?.username}</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-phone text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Mobile Number</span>
@@ -213,7 +213,7 @@ const Profile = () => {
                   <p className="text-[#3B82F6] font-medium">{profileData?.mobileNumber || "Not provided"}</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-calendar text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Age</span>
@@ -221,7 +221,7 @@ const Profile = () => {
                   <p className="text-[#3B82F6] font-medium">{profileData?.age || "Not provided"}</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-venus-mars text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Gender</span>
@@ -229,7 +229,7 @@ const Profile = () => {
                   <p className="text-[#3B82F6] font-medium">{profileData?.gender ? profileData.gender.charAt(0).toUpperCase() + profileData.gender.slice(1) : "Not provided"}</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-shield text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Role</span>
@@ -237,7 +237,7 @@ const Profile = () => {
                   <p className="text-[#3B82F6] font-medium">{profileData?.role ? profileData.role.charAt(0).toUpperCase() + profileData.role.slice(1) : "User"}</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 rounded-2xl border border-[#93C5FD]/20">
+                <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-3 lg:p-4 rounded-2xl border border-[#93C5FD]/20">
                   <div className="flex items-center mb-2">
                     <i className="fa-solid fa-clock text-[#1E40AF] mr-3"></i>
                     <span className="font-semibold text-[#1E40AF]">Last Login</span>
@@ -247,27 +247,27 @@ const Profile = () => {
               </div>
 
               {/* Enhanced FAQ Section */}
-              <div className="mt-12">
-                <div className="flex items-center mb-8">
-                  <div className="w-12 h-12 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-4">
-                    <i className="fa-solid fa-question-circle text-white text-lg"></i>
+              <div className="mt-8 lg:mt-12">
+                <div className="flex items-center mb-6 lg:mb-8">
+                  <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-3 lg:mr-4">
+                    <i className="fa-solid fa-question-circle text-white text-base lg:text-lg"></i>
                   </div>
-                  <h2 className="text-3xl font-bold bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] bg-clip-text text-transparent">
+                  <h2 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] bg-clip-text text-transparent">
                     Frequently Asked Questions
                   </h2>
                 </div>
                 
-                <div className="space-y-6">
-                  <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-6 rounded-2xl border border-[#93C5FD]/20 hover:shadow-lg transition-all duration-300">
+                <div className="space-y-4 lg:space-y-6">
+                  <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 lg:p-6 rounded-2xl border border-[#93C5FD]/20 hover:shadow-lg transition-all duration-300">
                     <div className="flex items-start">
-                      <div className="w-8 h-8 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                        <i className="fa-solid fa-envelope text-white text-sm"></i>
+                      <div className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-3 lg:mr-4 mt-1 flex-shrink-0">
+                        <i className="fa-solid fa-envelope text-white text-xs lg:text-sm"></i>
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-[#1E40AF] mb-3">
+                        <h3 className="text-base lg:text-lg font-bold text-[#1E40AF] mb-2 lg:mb-3">
                           What happens when I update my email address (or mobile number)?
                         </h3>
-                        <p className="text-[#3B82F6] leading-relaxed">
+                        <p className="text-[#3B82F6] leading-relaxed text-sm lg:text-base">
                           Your login email id (or mobile number) changes likewise.
                           You'll receive all your account related communication on
                           your updated email address (or mobile number).
@@ -276,17 +276,17 @@ const Profile = () => {
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-6 rounded-2xl border border-[#93C5FD]/20 hover:shadow-lg transition-all duration-300">
+                  <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 lg:p-6 rounded-2xl border border-[#93C5FD]/20 hover:shadow-lg transition-all duration-300">
                     <div className="flex items-start">
-                      <div className="w-8 h-8 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                        <i className="fa-solid fa-clock text-white text-sm"></i>
+                      <div className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-3 lg:mr-4 mt-1 flex-shrink-0">
+                        <i className="fa-solid fa-clock text-white text-xs lg:text-sm"></i>
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-[#1E40AF] mb-3">
+                        <h3 className="text-base lg:text-lg font-bold text-[#1E40AF] mb-2 lg:mb-3">
                           When will my StyleHub account be updated with the new email
                           address (or mobile number)?
                         </h3>
-                        <p className="text-[#3B82F6] leading-relaxed">
+                        <p className="text-[#3B82F6] leading-relaxed text-sm lg:text-base">
                           It happens as soon as you confirm the verification code sent
                           to your email (or mobile) and save the changes.
                         </p>
@@ -294,17 +294,17 @@ const Profile = () => {
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-6 rounded-2xl border border-[#93C5FD]/20 hover:shadow-lg transition-all duration-300">
+                  <div className="bg-gradient-to-r from-[#E8F4FD] to-[#93C5FD]/30 p-4 lg:p-6 rounded-2xl border border-[#93C5FD]/20 hover:shadow-lg transition-all duration-300">
                     <div className="flex items-start">
-                      <div className="w-8 h-8 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                        <i className="fa-solid fa-shield text-white text-sm"></i>
+                      <div className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] rounded-full flex items-center justify-center mr-3 lg:mr-4 mt-1 flex-shrink-0">
+                        <i className="fa-solid fa-shield text-white text-xs lg:text-sm"></i>
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-[#1E40AF] mb-3">
+                        <h3 className="text-base lg:text-lg font-bold text-[#1E40AF] mb-2 lg:mb-3">
                           What happens to my existing StyleHub account when I update my
                           email address (or mobile number)?
                         </h3>
-                        <p className="text-[#3B82F6] leading-relaxed">
+                        <p className="text-[#3B82F6] leading-relaxed text-sm lg:text-base">
                           Updating your email address (or mobile number) doesn't
                           invalidate your account. Your account remains fully
                           functional. You'll continue seeing your order history, saved
